@@ -49,6 +49,7 @@
     <Compile Include="AddPackagesDialog.UI.cs">
       <DependentUpon>AddPackagesDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="DummyPackageViewModel.cs" />
     <Compile Include="PagedResultsWidget.cs" />
     <Compile Include="PagedResultsWidget.UI.cs">
       <DependentUpon>PagedResultsWidget.cs</DependentUpon>
@@ -58,6 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <EmbeddedResource Include="icons\packageicon.png">
+      <LogicalName>packageicon.png</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="icons" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

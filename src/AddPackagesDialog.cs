@@ -25,16 +25,39 @@
 // THE SOFTWARE.
 
 using System;
+using Xwt;
+using Xwt.Drawing;
 using Xwt.Formats;
 
 namespace MonoDevelop.PackageManagement
 {
 	public partial class AddPackagesDialog
 	{
+		DataField<Image> packageIconField = new DataField<Image> ();
+		DataField<string> packageDescriptionField = new DataField<string> ();
+		DataField<DummyPackageViewModel> packageViewModelField = new DataField<DummyPackageViewModel> ();
+		ListStore packageStore;
+		
 		public AddPackagesDialog ()
 		{
 			Build ();
+			InitializeListView ();
 			AddDummyData ();
+		}
+		
+		void InitializeListView ()
+		{
+			packageStore = new ListStore (packageIconField, packageDescriptionField, packageViewModelField);
+			packagesListView.DataSource = packageStore;
+			packagesListView.Columns.Add ("Icon", packageIconField);
+			//packagesListView.Columns.Add ("Text", packageDescriptionField);
+			
+			var textCellView = new TextCellView {
+				MarkupField = packageDescriptionField,
+			};
+			var textColumn = new ListViewColumn ("Text", textCellView);
+			packagesListView.Columns.Add (textColumn);
+			
 		}
 		
 		void AddDummyData ()
@@ -44,6 +67,10 @@ namespace MonoDevelop.PackageManagement
 			this.packageSourceComboBox.Items.Add ("3", "xamarin.com");
 			
 			this.packageSourceComboBox.SelectedIndex = 0;
+			
+			AddPackages ();
+			
+			// Selected package information.
 			
 			this.packageNameLabel.Markup = "<b>Json.NET</b>";
 			this.packageVersionLabel.Text = "6.0.1";
@@ -73,6 +100,21 @@ namespace MonoDevelop.PackageManagement
 			string text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam fermentum risus nec tincidunt egestas. Praesent pharetra posuere quam eget rhoncus. Ut eu placerat neque, ac convallis lectus. Etiam ut viverra lorem. Integer quis tempor neque. Maecenas hendrerit mauris vitae lorem pretium, ac pellentesque ante placerat. Nullam et porta ipsum. Nunc blandit leo enim, nec aliquam dolor dapibus sed.\r\n" +
 				"Donec suscipit dictum erat a dictum. Vestibulum ut feugiat ante, vitae fermentum dui. Donec eget adipiscing urna, sagittis venenatis neque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Proin tristique accumsan turpis, dictum dapibus elit lacinia ac. Aenean interdum dolor eu ornare dictum. Maecenas dapibus nisl at arcu mollis luctus. Sed enim magna, porta eget pretium in, ultrices ut neque. Morbi velit turpis, sodales et sagittis vitae, ultrices sed erat.\r\n";
 			this.packageDescription.LoadText (text, TextFormat.Plain);
+		}
+		
+		void AddPackages ()
+		{
+			Image image = Image.FromResource (typeof(AddPackagesDialog), "packageicon.png");
+			
+			int row = packageStore.AddRow ();
+			packageStore.SetValue (row, packageIconField, image);
+			packageStore.SetValue (row, packageDescriptionField, "<b>Json.NET</b>\r\nJson.NET is a popular high-performance JSON framework for .NET");
+			
+			row = packageStore.AddRow ();
+			packageStore.SetValue (row, packageIconField, image);
+			packageStore.SetValue (row, packageDescriptionField, "<b>Modernizer</b>\r\nModernizer is a small and simple JavaScript library that helps you take advantage of emerging web technologies (CSS3, HTML 5) while still maintaing a fine level of control over older browsers that may not yet support these new technologies.");
+			
+			packagesListView.SelectRow (0);
 		}
 	}
 }

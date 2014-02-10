@@ -49,6 +49,7 @@ namespace MonoDevelop.PackageManagement
 		HBox packageDependenciesListHBox;
 		Label noPackageDependenciesLabel;
 		PagedResultsWidget pagedResultsWidget;
+		ListView packagesListView;
 		
 		void Build ()
 		{
@@ -81,7 +82,8 @@ namespace MonoDevelop.PackageManagement
 			packagesPane.Panel1.Resize = true;
 			packagesPane.Panel1.Shrink = true;
 			
-			var packagesListView = new ListView ();
+			packagesListView = new ListView ();
+			packagesListView.HeadersVisible = false;
 			packagesListVBox.PackStart (packagesListView, true, true);
 			
 			// Paged results widget.
