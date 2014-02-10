@@ -49,6 +49,10 @@
     <Compile Include="AddPackagesDialog.UI.cs">
       <DependentUpon>AddPackagesDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="PagedResultsWidget.cs" />
+    <Compile Include="PagedResultsWidget.UI.cs">
+      <DependentUpon>PagedResultsWidget.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

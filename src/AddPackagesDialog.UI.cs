@@ -48,6 +48,7 @@ namespace MonoDevelop.PackageManagement
 		Label packageDependenciesList;
 		HBox packageDependenciesListHBox;
 		Label noPackageDependenciesLabel;
+		PagedResultsWidget pagedResultsWidget;
 		
 		void Build ()
 		{
@@ -77,16 +78,29 @@ namespace MonoDevelop.PackageManagement
 			// Packages list.
 			var packagesListVBox = new VBox ();
 			packagesPane.Panel1.Content = packagesListVBox;
-			//packagesPane.Panel1.Resize = false;
-			//packagesPane.Panel1.Shrink = true;
+			packagesPane.Panel1.Resize = true;
+			packagesPane.Panel1.Shrink = true;
 			
 			var packagesListView = new ListView ();
 			packagesListVBox.PackStart (packagesListView, true, true);
 			
+			// Paged results widget.
+			var pagedResultsHBox = new HBox ();
+			packagesListVBox.PackStart (pagedResultsHBox);
+			
+			pagedResultsWidget = new PagedResultsWidget ();
+			
+			var pagedResultsLeftLabel = new Label ();
+			var pagedResultsRightLabel = new Label ();
+			
+			pagedResultsHBox.PackStart (pagedResultsLeftLabel, true, true);
+			pagedResultsHBox.PackStart (pagedResultsWidget);
+			pagedResultsHBox.PackStart (pagedResultsRightLabel, true, true);
+			
 			var packageInfoVBox = new VBox ();
 			packagesPane.Panel2.Content = packageInfoVBox;
-			//packagesPane.Panel2.Resize = false;
-			//packagesPane.Panel2.Shrink = true;
+			packagesPane.Panel2.Resize = false;
+			packagesPane.Panel2.Shrink = true;
 			
 			// Package information
 			var packageInfoFrame = new Frame ();
