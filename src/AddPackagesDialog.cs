@@ -42,9 +42,7 @@ namespace MonoDevelop.PackageManagement
 		{
 			Build ();
 			InitializeListView ();
-			
-			HidePackageInformation ();
-			
+			//HidePackageInformation ();
 			AddDummyData ();
 		}
 		
