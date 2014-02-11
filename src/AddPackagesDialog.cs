@@ -42,6 +42,9 @@ namespace MonoDevelop.PackageManagement
 		{
 			Build ();
 			InitializeListView ();
+			
+			HidePackageInformation ();
+			
 			AddDummyData ();
 		}
 		
@@ -56,6 +59,11 @@ namespace MonoDevelop.PackageManagement
 			};
 			var textColumn = new ListViewColumn ("Text", textCellView);
 			packagesListView.Columns.Add (textColumn);
+		}
+		
+		void HidePackageInformation ()
+		{
+			this.packageInfoScrollView.Visible = false;
 		}
 		
 		void AddDummyData ()

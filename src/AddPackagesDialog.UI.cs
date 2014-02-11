@@ -35,7 +35,7 @@ namespace MonoDevelop.PackageManagement
 	{
 		ComboBox packageSourceComboBox;
 		TextEntry packageSearchEntry;
-		
+		ScrollView packageInfoScrollView;
 		Label packageNameLabel;
 		Label packageVersionLabel;
 		LinkLabel packageIdLink;
@@ -112,7 +112,7 @@ namespace MonoDevelop.PackageManagement
 			packageInfoFrameVBox.Margin = new WidgetSpacing (5, 5, 5, 5);
 			//packageInfoFrame.Content = packageInfoFrameVBox;
 			
-			var packageInfoScrollView = new ScrollView ();
+			packageInfoScrollView = new ScrollView ();
 			packageInfoScrollView.BorderVisible = false;
 			packageInfoScrollView.Content = packageInfoFrameVBox;
 			packageInfoFrame.Content = packageInfoScrollView;
