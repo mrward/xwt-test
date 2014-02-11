@@ -47,7 +47,7 @@ namespace MonoDevelop.PackageManagement
 			
 			backButton = new Button ();
 			backButton.Style = ButtonStyle.Flat;
-			backButton.Label = "<";
+			backButton.Image = Image.FromResource (typeof(PagedResultsWidget), "back.png");
 			mainHBox.PackStart (backButton);
 			
 			firstButton = new Button ();
@@ -77,7 +77,7 @@ namespace MonoDevelop.PackageManagement
 		
 			forwardButton = new Button ();
 			forwardButton.Style = ButtonStyle.Flat;
-			forwardButton.Label = ">";
+			forwardButton.Image = Image.FromResource (typeof(PagedResultsWidget), "forward.png");
 			mainHBox.PackStart (forwardButton);
 			
 			Content = mainHBox;

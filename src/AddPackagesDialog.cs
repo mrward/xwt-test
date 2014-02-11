@@ -50,14 +50,12 @@ namespace MonoDevelop.PackageManagement
 			packageStore = new ListStore (packageIconField, packageDescriptionField, packageViewModelField);
 			packagesListView.DataSource = packageStore;
 			packagesListView.Columns.Add ("Icon", packageIconField);
-			//packagesListView.Columns.Add ("Text", packageDescriptionField);
 			
 			var textCellView = new TextCellView {
 				MarkupField = packageDescriptionField,
 			};
 			var textColumn = new ListViewColumn ("Text", textCellView);
 			packagesListView.Columns.Add (textColumn);
-			
 		}
 		
 		void AddDummyData ()

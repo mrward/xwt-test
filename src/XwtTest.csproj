@@ -62,6 +62,12 @@
     <EmbeddedResource Include="icons\packageicon.png">
       <LogicalName>packageicon.png</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="icons\back.png">
+      <LogicalName>back.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="icons\forward.png">
+      <LogicalName>forward.png</LogicalName>
+    </EmbeddedResource>
     <None Include="lib\Xwt.Gtk.dll.config">
       <Link>Xwt.Gtk.dll.config</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
