@@ -37,6 +37,8 @@ namespace MonoDevelop.PackageManagement
 		DataField<string> packageDescriptionField = new DataField<string> ();
 		DataField<DummyPackageViewModel> packageViewModelField = new DataField<DummyPackageViewModel> ();
 		ListStore packageStore;
+		TimeSpan searchDelayTimeSpan = TimeSpan.FromMilliseconds (2000);
+		IDisposable searchTimer;
 		
 		public AddPackagesDialog ()
 		{
@@ -44,6 +46,8 @@ namespace MonoDevelop.PackageManagement
 			InitializeListView ();
 			//HidePackageInformation ();
 			AddDummyData ();
+			packagesListView.SelectionChanged += PackagesListViewSelectionChanged;
+			packageSearchEntry.Changed += SearchChanged;
 		}
 		
 		void InitializeListView ()
@@ -57,6 +61,25 @@ namespace MonoDevelop.PackageManagement
 			};
 			var textColumn = new ListViewColumn ("Text", textCellView);
 			packagesListView.Columns.Add (textColumn);
+		}
+
+		void PackagesListViewSelectionChanged (object sender, EventArgs e)
+		{
+			this.packageNameLabel.Markup = "<b>Modernizr.NET</b>";
+			this.packageVersionLabel.Text = "6.0.1";
+
+			this.packageIdLink.Text = "Newtonsoft.Json";
+			this.packageIdLink.Uri = new Uri ("http://www.nuget.org/packages/Newtonsoft.Json/");
+			this.packageDescription.LoadText ("Modernizer is a small and simple JavaScript library that helps you take advantage of emerging web technologies (CSS3, HTML 5) while still maintaing a fine level of control over older browsers that may not yet support these new technologies.", TextFormat.Plain);
+
+			//AddLoadsOfPackageDescriptionText();
+
+			this.packageAuthor.Text = "Modernizr";
+			this.packagePublishedDate.Text = DateTime.Now.ToShortDateString ();
+			this.packageDownloads.Text = "10491";
+			this.packageLicenseLink.Uri = new Uri ("https://raw.github.com/JamesNK/Newtonsoft.Json/master/LICENSE.md");
+			this.packageProjectPageLink.Uri = new Uri ("http://james.newtonking.com/json");
+
 		}
 		
 		void HidePackageInformation ()
@@ -119,6 +142,35 @@ namespace MonoDevelop.PackageManagement
 			packageStore.SetValue (row, packageDescriptionField, "<b>Modernizer</b>\r\nModernizer is a small and simple JavaScript library that helps you take advantage of emerging web technologies (CSS3, HTML 5) while still maintaing a fine level of control over older browsers that may not yet support these new technologies.");
 			
 			packagesListView.SelectRow (0);
+		}
+
+		void SearchChanged (object sender, EventArgs e)
+		{
+			this.searchingSpinnerHBox.Visible = true;
+			this.packagesListView.Visible = false;
+			ShowSearchResultsAfter ();
+		}
+
+		void ShowSearchResultsAfter ()
+		{
+			DisposeExistingTimer ();
+			searchTimer = Application.TimeoutInvoke (searchDelayTimeSpan, () => ShowSearchResults ());
+		}
+
+		bool ShowSearchResults ()
+		{
+			this.searchingSpinnerHBox.Visible = false;
+			this.packagesListView.Visible = true;
+
+			AddDummyData ();
+			return true;
+		}
+
+		void DisposeExistingTimer ()
+		{
+			if (searchTimer != null) {
+				searchTimer.Dispose ();
+			}
 		}
 	}
 }

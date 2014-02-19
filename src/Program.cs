@@ -12,8 +12,7 @@ namespace XwtTest
 			Application.Initialize (ToolkitType.Gtk);
 			
 			using (var addPackagesDialog = new AddPackagesDialog ()) {
-				addPackagesDialog.Show ();
-				Application.Run ();
+				addPackagesDialog.Run ();
 			}
 		}
 	}

@@ -50,7 +50,8 @@ namespace MonoDevelop.PackageManagement
 		Label noPackageDependenciesLabel;
 		PagedResultsWidget pagedResultsWidget;
 		ListView packagesListView;
-		
+		HBox searchingSpinnerHBox;
+
 		void Build ()
 		{
 			Title = Catalog.GetString ("Add Packages");
@@ -85,6 +86,19 @@ namespace MonoDevelop.PackageManagement
 			packagesListView = new ListView ();
 			packagesListView.HeadersVisible = false;
 			packagesListVBox.PackStart (packagesListView, true, true);
+
+			// Searching spinner.
+			searchingSpinnerHBox = new HBox ();
+			searchingSpinnerHBox.HorizontalPlacement = WidgetPlacement.Center;
+			searchingSpinnerHBox.Visible = false;
+			var searchingSpinner = new Spinner ();
+			searchingSpinner.Animate = true;
+			searchingSpinnerHBox.PackStart (searchingSpinner);
+
+			var searchingLabel = new Label ();
+			searchingLabel.Text = Catalog.GetString ("Searching...");
+			searchingSpinnerHBox.PackStart (searchingLabel);
+			packagesListVBox.PackStart (searchingSpinnerHBox, true, true);
 			
 			// Paged results widget.
 			var pagedResultsHBox = new HBox ();
