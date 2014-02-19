@@ -94,6 +94,9 @@ namespace MonoDevelop.PackageManagement
 		
 		void AddDummyData ()
 		{
+			this.errorMessageLabel.Wrap = WrapMode.Word;
+			//this.errorMessageLabel.Text = "Unable to reach nuget.org orgorgorgorg orgorgorgorgorgorg orgorg orgorgorg orgorg orgorgorgorg orgorg zzzzz j jsdafi jasio f jasd fjasoif jasdfoi ";
+			this.errorMessageLabel.Text = "asfaf asdfadsf ";
 			this.packageSourceComboBox.Items.Add ("1", "All Sources");
 			this.packageSourceComboBox.Items.Add ("2", "nuget.org");
 			this.packageSourceComboBox.Items.Add ("3", "xamarin.com");

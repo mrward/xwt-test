@@ -51,6 +51,8 @@ namespace MonoDevelop.PackageManagement
 		PagedResultsWidget pagedResultsWidget;
 		ListView packagesListView;
 		HBox searchingSpinnerHBox;
+		HBox errorHBox;
+		Label errorMessageLabel;
 
 		void Build ()
 		{
@@ -77,8 +79,25 @@ namespace MonoDevelop.PackageManagement
 			var packagesPane = new HPaned ();
 			mainVBox.PackStart (packagesPane, true, true);
 			
-			// Packages list.
+			// Error information.
 			var packagesListVBox = new VBox ();
+			errorHBox = new HBox ();
+			errorHBox.Margin = new WidgetSpacing ();
+			errorHBox.BackgroundColor = Colors.Orange;
+			//errorHBox.Visible = false;
+			//errorHBox.PackStart (new Label (), true);
+			errorMessageLabel = new Label ();
+			//errorMessageLabel.BackgroundColor = errorHBox.BackgroundColor;
+			var errorImage = new ImageView (Image.FromResource ("forward.png"));
+			//var errorImage = new ImageView (StockIcons.Error);
+			errorHBox.PackStart (errorImage, false, false);
+			errorMessageLabel.TextColor = Colors.White;
+			errorMessageLabel.Margin = new WidgetSpacing (5, 5, 5, 5);
+			errorHBox.PackStart (errorMessageLabel, true);
+			//errorHBox.PackStart (new Label (), true);
+			packagesListVBox.PackStart (errorHBox);
+			
+			// Packages list.
 			packagesPane.Panel1.Content = packagesListVBox;
 			packagesPane.Panel1.Resize = true;
 			packagesPane.Panel1.Shrink = true;
@@ -86,7 +105,7 @@ namespace MonoDevelop.PackageManagement
 			packagesListView = new ListView ();
 			packagesListView.HeadersVisible = false;
 			packagesListVBox.PackStart (packagesListView, true, true);
-
+			
 			// Searching spinner.
 			searchingSpinnerHBox = new HBox ();
 			searchingSpinnerHBox.HorizontalPlacement = WidgetPlacement.Center;
