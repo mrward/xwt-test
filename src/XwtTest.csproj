@@ -49,6 +49,7 @@
     <Compile Include="AddPackagesDialog.UI.cs">
       <DependentUpon>AddPackagesDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomTextCellView.cs" />
     <Compile Include="DummyPackageViewModel.cs" />
     <Compile Include="PagedResultsWidget.cs" />
     <Compile Include="PagedResultsWidget.UI.cs">

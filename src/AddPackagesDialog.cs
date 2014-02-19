@@ -28,6 +28,7 @@ using System;
 using Xwt;
 using Xwt.Drawing;
 using Xwt.Formats;
+using XwtTest;
 
 namespace MonoDevelop.PackageManagement
 {
@@ -52,12 +53,16 @@ namespace MonoDevelop.PackageManagement
 		
 		void InitializeListView ()
 		{
-			packageStore = new ListStore (packageIconField, packageDescriptionField, packageViewModelField);
+			packageStore = new ListStore (packageIconField, packageViewModelField);
 			packagesListView.DataSource = packageStore;
 			packagesListView.Columns.Add ("Icon", packageIconField);
 			
-			var textCellView = new TextCellView {
-				MarkupField = packageDescriptionField,
+//			var textCellView = new TextCellView {
+//				MarkupField = packageDescriptionField,
+//			};
+//			var textColumn = new ListViewColumn ("Text", textCellView);
+			var textCellView = new CustomTextCellView {
+				PackageField = packageViewModelField
 			};
 			var textColumn = new ListViewColumn ("Text", textCellView);
 			packagesListView.Columns.Add (textColumn);
@@ -134,12 +139,16 @@ namespace MonoDevelop.PackageManagement
 			Image image = Image.FromResource (typeof(AddPackagesDialog), "packageicon.png");
 			
 			int row = packageStore.AddRow ();
+			var package = new DummyPackageViewModel () {
+			};
 			packageStore.SetValue (row, packageIconField, image);
-			packageStore.SetValue (row, packageDescriptionField, "<b>Json.NET</b>\r\nJson.NET is a popular high-performance JSON framework for .NET");
+			//packageStore.SetValue (row, packageDescriptionField, "<b>Json.NET</b>\r\nJson.NET is a popular high-performance JSON framework for .NET");
+			packageStore.SetValue (row, packageViewModelField, package);
 			
 			row = packageStore.AddRow ();
 			packageStore.SetValue (row, packageIconField, image);
-			packageStore.SetValue (row, packageDescriptionField, "<b>Modernizer</b>\r\nModernizer is a small and simple JavaScript library that helps you take advantage of emerging web technologies (CSS3, HTML 5) while still maintaing a fine level of control over older browsers that may not yet support these new technologies.");
+			//packageStore.SetValue (row, packageDescriptionField, "<b>Modernizer</b>\r\nModernizer is a small and simple JavaScript library that helps you take advantage of emerging web technologies (CSS3, HTML 5) while still maintaing a fine level of control over older browsers that may not yet support these new technologies.");
+			packageStore.SetValue (row, packageViewModelField, package);
 			
 			packagesListView.SelectRow (0);
 		}
