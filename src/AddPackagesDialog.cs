@@ -48,7 +48,24 @@ namespace MonoDevelop.PackageManagement
 			//HidePackageInformation ();
 			AddDummyData ();
 			packagesListView.SelectionChanged += PackagesListViewSelectionChanged;
+			packagesListView.RowActivated += PackagesListViewRowActivated;
 			packageSearchEntry.Changed += SearchChanged;
+			packagesListView.VerticalScrollControl.ValueChanged += new EventHandler(ListViewVerticalScrollChanged);
+		}
+
+		void ListViewVerticalScrollChanged(object sender, EventArgs e)
+		{
+			double value = packagesListView.VerticalScrollControl.Value;
+			double upperValue = packagesListView.VerticalScrollControl.UpperValue;
+			Console.WriteLine("Scroll: {0}, max {1}", value, upperValue);
+			if ((value / upperValue) > 0.7) {
+				AddPackages ();
+			}
+		}
+		
+		void PackagesListViewRowActivated(object sender, EventArgs e)
+		{
+			Xwt.MessageDialog.ShowMessage ("Hello");
 		}
 		
 		void InitializeListView ()
@@ -94,9 +111,9 @@ namespace MonoDevelop.PackageManagement
 		
 		void AddDummyData ()
 		{
-			this.errorMessageLabel.Wrap = WrapMode.Word;
+			//this.errorMessageLabel.Wrap = WrapMode.Word;
 			//this.errorMessageLabel.Text = "Unable to reach nuget.org orgorgorgorg orgorgorgorgorgorg orgorg orgorgorg orgorg orgorgorgorg orgorg zzzzz j jsdafi jasio f jasd fjasoif jasdfoi ";
-			this.errorMessageLabel.Text = "asfaf asdfadsf ";
+			//this.errorMessageLabel.Text = "asfaf asdfadsf ";
 			this.packageSourceComboBox.Items.Add ("1", "All Sources");
 			this.packageSourceComboBox.Items.Add ("2", "nuget.org");
 			this.packageSourceComboBox.Items.Add ("3", "xamarin.com");
@@ -141,18 +158,19 @@ namespace MonoDevelop.PackageManagement
 		{
 			Image image = Image.FromResource (typeof(AddPackagesDialog), "packageicon.png");
 			
-			int row = packageStore.AddRow ();
-			var package = new DummyPackageViewModel () {
-			};
-			packageStore.SetValue (row, packageIconField, image);
-			//packageStore.SetValue (row, packageDescriptionField, "<b>Json.NET</b>\r\nJson.NET is a popular high-performance JSON framework for .NET");
-			packageStore.SetValue (row, packageViewModelField, package);
-			
-			row = packageStore.AddRow ();
-			packageStore.SetValue (row, packageIconField, image);
-			//packageStore.SetValue (row, packageDescriptionField, "<b>Modernizer</b>\r\nModernizer is a small and simple JavaScript library that helps you take advantage of emerging web technologies (CSS3, HTML 5) while still maintaing a fine level of control over older browsers that may not yet support these new technologies.");
-			packageStore.SetValue (row, packageViewModelField, package);
-			
+			for (int i = 0; i < 10; ++i) {
+				int row = packageStore.AddRow ();
+				var package = new DummyPackageViewModel () {
+				};
+				packageStore.SetValue (row, packageIconField, image);
+				//packageStore.SetValue (row, packageDescriptionField, "<b>Json.NET</b>\r\nJson.NET is a popular high-performance JSON framework for .NET");
+				packageStore.SetValue (row, packageViewModelField, package);
+				
+				row = packageStore.AddRow ();
+				packageStore.SetValue (row, packageIconField, image);
+				//packageStore.SetValue (row, packageDescriptionField, "<b>Modernizer</b>\r\nModernizer is a small and simple JavaScript library that helps you take advantage of emerging web technologies (CSS3, HTML 5) while still maintaing a fine level of control over older browsers that may not yet support these new technologies.");
+				packageStore.SetValue (row, packageViewModelField, package);
+			}
 			packagesListView.SelectRow (0);
 		}
 

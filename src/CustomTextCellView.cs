@@ -32,7 +32,6 @@ namespace XwtTest
 			//layout.Trimming = TextTrimming.WordElipsis;
 			layout.Trimming = TextTrimming.Word;
 			ctx.DrawTextLayout (layout, cellArea.Left, cellArea.Top + size.Height + packageDescriptionPaddingHeight);
-
 			
 //			ctx.SetLineWidth (1);
 //			ctx.Rectangle (cellArea);

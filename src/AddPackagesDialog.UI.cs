@@ -84,7 +84,7 @@ namespace MonoDevelop.PackageManagement
 			errorHBox = new HBox ();
 			errorHBox.Margin = new WidgetSpacing ();
 			errorHBox.BackgroundColor = Colors.Orange;
-			//errorHBox.Visible = false;
+			errorHBox.Visible = false;
 			//errorHBox.PackStart (new Label (), true);
 			errorMessageLabel = new Label ();
 			//errorMessageLabel.BackgroundColor = errorHBox.BackgroundColor;
@@ -267,7 +267,7 @@ namespace MonoDevelop.PackageManagement
 			closeButton.Clicked += (sender, e) => Close ();
 			this.Buttons.Add (closeButton);
 			
-			var addToProjectButton = new DialogButton (Catalog.GetString ("Add to Project"));
+			var addToProjectButton = new DialogButton (Catalog.GetString ("Add to Project"), Command.Ok);
 			this.Buttons.Add (addToProjectButton);
 			
 			packageSearchEntry.SetFocus ();
