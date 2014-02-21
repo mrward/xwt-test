@@ -14,24 +14,26 @@ namespace XwtTest
 		
 		protected override void OnDraw(Context ctx, Rectangle cellArea)
 		{
+			var downloadCountLayout = new TextLayout ();
+			downloadCountLayout.Text = "10000002";
+			Size downloadCountTextSize = downloadCountLayout.GetSize ();
+			Point location = new Point (cellArea.Right, cellArea.Top);
+			Point downloadLocation = location.Offset (-downloadCountTextSize.Width, 0);
+			ctx.DrawTextLayout (downloadCountLayout, downloadLocation);
+			
 			var layout = new TextLayout ();
-			layout.Markup = "<b>Json.NET</b>";
+			layout.Markup = "<b>DotNetOpenAuth extensions for ASP.NET (WebPages)</b>";
+			layout.Trimming = TextTrimming.WordElipsis;
+			layout.Width = downloadLocation.X - cellArea.Left - 5;
 			ctx.DrawTextLayout (layout, cellArea.Left, cellArea.Top);
 			
 			layout = new TextLayout ();
-			layout.Text = "10000002";
-			Size size = layout.GetSize ();
-			Point location = new Point (cellArea.Right, cellArea.Top);
-			Point downloadLocation = location.Offset (-size.Width, 0);
-			ctx.DrawTextLayout (layout, downloadLocation);
-			
-			layout = new TextLayout ();
 			layout.Width = cellArea.Width;
-			layout.Height = cellArea.Height - size.Height;
+			layout.Height = cellArea.Height - downloadCountTextSize.Height;
 			layout.Text = "lorem ipsum.asdfasdf jdsjldsjldfas lkljdfsajdfasjd a fadsf adsf dasf dasf dasf dasf asdf das faffas asdfjasdfdasf asd fa adsf asdf af asdf a as faf afzzzzzzzzzzzzzzzzzzzzzzz zzz";
 			//layout.Trimming = TextTrimming.WordElipsis;
 			layout.Trimming = TextTrimming.Word;
-			ctx.DrawTextLayout (layout, cellArea.Left, cellArea.Top + size.Height + packageDescriptionPaddingHeight);
+			ctx.DrawTextLayout (layout, cellArea.Left, cellArea.Top + downloadCountTextSize.Height + packageDescriptionPaddingHeight);
 			
 //			ctx.SetLineWidth (1);
 //			ctx.Rectangle (cellArea);
